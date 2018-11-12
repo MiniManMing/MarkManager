@@ -1,0 +1,3 @@
+C:/Users/shao_/CLionProjects/MarkManager/cmake-build-debug/CMakeFiles/MarkManager.dir
+C:/Users/shao_/CLionProjects/MarkManager/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/Users/shao_/CLionProjects/MarkManager/cmake-build-debug/CMakeFiles/rebuild_cache.dir
