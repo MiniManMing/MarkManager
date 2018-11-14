@@ -1,35 +1,168 @@
+# 1. åŸºäºåŠ¨æ€é“¾è¡¨çš„å­¦ç”Ÿæˆç»©ç®¡ç†ç³»ç»Ÿ
+## 1.1. æ•°æ®é›†
+>å­¦ç”Ÿæˆç»©ç®¡ç†ç³»ç»Ÿï¼Œå¯ä»¥æŠ½è±¡ä¸ºä¸¤ä¸ªå®ä½“ã€‚
+- å­¦ç”Ÿï¼ˆStudentï¼‰
+- æˆç»©ï¼ˆMarkï¼‰
+## 1.2. æ•°æ®å…ƒç´ 
+- å¦‚ä¸‹å›¾æ‰€ç¤º
+![](http://p7ddollt8.bkt.clouddn.com/18-11-15/98391104.jpg)
+## 1.3. é€»è¾‘ç»“æ„
+- å¦‚ä¸‹å›¾æ‰€ç¤º
+![](http://p7ddollt8.bkt.clouddn.com/18-11-15/80597056.jpg)
+## 1.4. åŠŸèƒ½å®ç°
+- è¾“å…¥å­¦ç”Ÿä¿¡æ¯
+```
+DN InputStudent(DN phead);
+```
+- è¾“å…¥æˆç»©ä¿¡æ¯
+```
+PMNODE InputMarkInfo(PMNODE mhead);
+```
+- è¾“å‡ºæ“ä½œ
+```
+void OutputStudent(DN pHead);
+void OutputMarkInfo(PMNODE pHead);
+void OutputMarkDetail(DN pHead);
+```
+- æ’å…¥å­¦ç”Ÿä¿¡æ¯
+```
+void InsertStudent(DN pHead);
+```
+- æ’å…¥æˆç»©ä¿¡æ¯
+```
+void InsertMark(PMNODE mhead);
+```
+- åˆ é™¤å­¦ç”Ÿä¿¡æ¯
+```
+void DeleteStudent(DN pHead);
+```
+- ä¿®æ”¹å­¦ç”Ÿä¿¡æ¯
+```
+void ChangeStudent(DN pHead);
+```
+- ä¿®æ”¹æˆç»©ä¿¡æ¯
+```
+void ChangeStudentMark(DN pHead);
+```
+- æ’åº
+    - æŒ‰AVGæ’åº
+    ```
+    void ScortByAVG(DN pHead);
+    ```
+    - æŒ‰SUMæ’åº
+    ```
+    void ScortBySUM(DN pHead);
+    ```
+    - æŒ‰å„ç§‘æˆç»©æ’åº
+    ```
+    void ScortByClass(DN pHead, char name[20]);
+    ```
+## 1.5. æ•°æ®ç»“æ„è®¾è®¡
+### 1.5.1. Student
+```
+struct Student {
+    int tempId;//è‡ªå¢ID
+    char No[13];//å­¦ç”Ÿå­¦å·
+    char Name[10];//å­¦ç”Ÿå§“å
+    char Sex[4];//å­¦ç”Ÿæ€§åˆ«
+    char Class[20];//å­¦ç”Ÿç­çº§
+    char Tel[11];//å­¦ç”Ÿç”µè¯
+};
+```
+### 1.5.2. Mark
+```
+struct Mark{
+    char ClassName[20];//è¯¾ç¨‹åç§°
+    float ClassMark;//è¯¾ç¨‹æˆç»©
+};
+```
+## 1.6. å‚¨å­˜ç»“æ„è®¾è®¡
+### 1.6.1. Student
+```
+typedef struct StudentNode{
+    struct StudentNode *UP; //å‰æŒ‡é’ˆ
+    struct Student student; //å­¦ç”Ÿæ•°æ®
+    float Total;//æˆç»©æ€»åˆ†
+    float Avg;//æˆç»©å¹³å‡åˆ†
+    struct MarkNode *SMN;//æˆç»©ä¿¡æ¯æŒ‡é’ˆ
+    struct StudentNode *DOWN;//åæŒ‡é’ˆ
+}SNODE,*DN;
+```
+### 1.6.2. Mark
+```
+typedef struct MarkNode{
+    struct Mark mark;//æˆç»©æ•°æ®
+    struct MarkNode *D;//ä¸‹æŒ‡é’ˆ
+}MNODE,*PMNODE;
+```
+
+## 1.7. è®¾è®¡ç®—æ³•
+### 1.7.1. NodeCopy
+> åªè¯´æˆ‘ç¨‹åºä¸­çš„ä¸€ä¸ªäº®ç‚¹ï¼Œæ’åºç­‰ç®—æ³•æˆ‘è®¤ä¸ºå¹¶æ²¡æœ‰ä»€ä¹ˆå¯è¯´çš„ï¼Œå› ä¸ºè®¾è®¡æ•°æ®ç»“æ„æ—¶ï¼Œè€ƒè™‘åˆ°å­¦ç”Ÿä¸æˆç»©ä¹‹é—´çš„å…³ç³»ä¸º1:Nçš„å…³ç³»ï¼Œæ•…å¿…é¡»åœ¨æ¯ä¸ªæ–°çš„å­¦ç”ŸèŠ‚ç‚¹åé¢æŒ‚è½½æˆç»©é“¾è¡¨ï¼Œå€Ÿé‰´Javaè¯­è¨€çš„newå…³é”®å­—ï¼Œæ¯newä¸€ä¸ªå¯¹è±¡å¼€è¾Ÿä¸€ä¸ªå†…å­˜ç©ºé—´çš„åŸåˆ™ï¼Œè¿›è¡Œè®¾è®¡ã€‚æ­¤å‡½æ•°å¯ä»¥å¤åˆ¶ä¸€ä¸ªæ–°çš„ä¸”ä¸ºç©ºçš„MarkèŠ‚ç‚¹ã€‚
+```
+PMNODE MarkNodeCopy(PMNODE mhead){
+    PMNODE h,a;
+   if(mhead == NULL){
+       printf("å¤åˆ¶çš„é“¾è¡¨æ˜¯ç©ºçš„");
+       return NULL;
+   }else if(mhead->D==NULL){
+       printf("å¤åˆ¶çš„é“¾è¡¨æ˜¯ç©ºçš„");
+       return NULL;
+   }
+   h=a=(PMNODE)malloc(sizeof(MNODE));
+   a->D=(PMNODE)malloc(sizeof(MNODE));
+   a=a->D;
+   while (1){
+       strcpy(a->mark.ClassName,mhead->mark.ClassName);
+       a->mark.ClassMark=0;
+       if(mhead->D!=NULL){
+           mhead=mhead->D;
+           a->D=(PMNODE)malloc(sizeof(MNODE));
+           a=a->D;
+       } else{
+           a->D=NULL;
+           break;
+       }
+   }
+    return h;
+
+}
+```
+## 1.8. å®ç°
+[GitHubé“¾æ¥](https://github.com/MiniManMing/MarkManager)
+```
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-//Ñ§ÉúÊı¾İ½á¹¹·â×°
+//å­¦ç”Ÿæ•°æ®ç»“æ„å°è£…
 struct Student {
-    int tempId;//×ÔÔöID
-    char No[13];//Ñ§ÉúÑ§ºÅ
-    char Name[10];//Ñ§ÉúĞÕÃû
-    char Sex[4];//Ñ§ÉúĞÔ±ğ
-    char Class[20];//Ñ§Éú°à¼¶
-    char Tel[11];//Ñ§Éúµç»°
+    int tempId;//è‡ªå¢ID
+    char No[13];//å­¦ç”Ÿå­¦å·
+    char Name[10];//å­¦ç”Ÿå§“å
+    char Sex[4];//å­¦ç”Ÿæ€§åˆ«
+    char Class[20];//å­¦ç”Ÿç­çº§
+    char Tel[11];//å­¦ç”Ÿç”µè¯
 };
-//³É¼¨Êı¾İ½á¹¹·â×°
+//æˆç»©æ•°æ®ç»“æ„å°è£…
 struct Mark{
-    char ClassName[20];//¿Î³ÌÃû³Æ
-    float ClassMark;//¿Î³Ì³É¼¨
+    char ClassName[20];//è¯¾ç¨‹åç§°
+    float ClassMark;//è¯¾ç¨‹æˆç»©
 };
-//Ñ§Éú½Úµã½á¹¹
+//å­¦ç”ŸèŠ‚ç‚¹ç»“æ„
 typedef struct StudentNode{
-    struct StudentNode *UP; //Ç°Ö¸Õë
-    struct Student student; //Ñ§ÉúÊı¾İ
-    float Total;//³É¼¨×Ü·Ö
-    float Avg;//³É¼¨Æ½¾ù·Ö
+    struct StudentNode *UP; //å‰æŒ‡é’ˆ
+    struct Student student; //å­¦ç”Ÿæ•°æ®
+    float Total;//æˆç»©æ€»åˆ†
+    float Avg;//æˆç»©å¹³å‡åˆ†
     struct MarkNode *SMN;
-    struct StudentNode *DOWN;//ºóÖ¸Õë
+    struct StudentNode *DOWN;//åæŒ‡é’ˆ
 }SNODE,*UN,*DN;
-//³É¼¨½Úµã½á¹¹
+//æˆç»©èŠ‚ç‚¹ç»“æ„
 typedef struct MarkNode{
-    struct Mark mark;//³É¼¨Êı¾İ
-    struct MarkNode *D;//ÏÂÖ¸Õë
+    struct Mark mark;//æˆç»©æ•°æ®
+    struct MarkNode *D;//ä¸‹æŒ‡é’ˆ
 }MNODE,*PMNODE;
-//¼ì²éY£¿N
+//æ£€æŸ¥Yï¼ŸN
 int checkExit(char c){
     if('Y'==c||'y'==c)
         return 1;
@@ -40,7 +173,7 @@ DN CreateList(void){
     DN phead =(DN)malloc(sizeof(SNODE));
     if(NULL == phead)
     {
-        printf("ÄÚ´æ·ÖÅäÊ§°Ü,³ÌĞòÖÕÖ¹!\n");
+        printf("å†…å­˜åˆ†é…å¤±è´¥,ç¨‹åºç»ˆæ­¢!\n");
 
         exit(-1);
     }
@@ -51,7 +184,7 @@ PMNODE CreateMark(void){
     PMNODE mhead =(PMNODE)malloc(sizeof(MNODE));
     if(NULL == mhead)
     {
-        printf("ÄÚ´æ·ÖÅäÊ§°Ü,³ÌĞòÖÕÖ¹!\n");
+        printf("å†…å­˜åˆ†é…å¤±è´¥,ç¨‹åºç»ˆæ­¢!\n");
 
         exit(-1);
     }
@@ -60,26 +193,26 @@ PMNODE CreateMark(void){
 PMNODE InputMarkInfo(PMNODE mhead){
     MNODE mark;
     if(NULL == mhead){
-        printf("ÇëÖ´ĞĞ³õÊ¼»¯ÃüÁî\n");
+        printf("è¯·æ‰§è¡Œåˆå§‹åŒ–å‘½ä»¤\n");
     }else{
-        printf("»¶Ó­½øÈë³É¼¨Â¼ÈëÏµÍ³È·ÈÏ°´YÍË³ö°´N(Y?N)\n");
+        printf("æ¬¢è¿è¿›å…¥æˆç»©å½•å…¥ç³»ç»Ÿç¡®è®¤æŒ‰Yé€€å‡ºæŒ‰N(Y?N)\n");
         char c;
         scanf("%s",&c);
         if(checkExit(c)){
             PMNODE ptail=mhead;
             ptail->D=NULL;
             for(int i=0;;i++){
-                system("cls");//ÇåÆÁ
-                printf("ÇëÊäÈëµÚ%dÃÅ¿ÎµÄÃû×Ö:", i+1);
+                system("cls");//æ¸…å±
+                printf("è¯·è¾“å…¥ç¬¬%dé—¨è¯¾çš„åå­—:", i+1);
                 scanf("%s", mark.mark.ClassName);
-                printf("¼ÌĞø°´YÍË³ö°´N(Y?N)\n");
+                printf("ç»§ç»­æŒ‰Yé€€å‡ºæŒ‰N(Y?N)\n");
                 char s;
                 scanf("%s",&s);
                 if(checkExit(s)){
                     PMNODE mnew =(PMNODE)malloc(sizeof(MNODE));
                     if(NULL == mnew)
                     {
-                        printf("ÄÚ´æ·ÖÅäÊ§°Ü,³ÌĞòÖÕÖ¹!\n");
+                        printf("å†…å­˜åˆ†é…å¤±è´¥,ç¨‹åºç»ˆæ­¢!\n");
 
                         exit(-1);
                     }
@@ -91,7 +224,7 @@ PMNODE InputMarkInfo(PMNODE mhead){
                     PMNODE emnew =(PMNODE)malloc(sizeof(MNODE));
                     if(NULL == emnew)
                     {
-                        printf("ÄÚ´æ·ÖÅäÊ§°Ü,³ÌĞòÖÕÖ¹!\n");
+                        printf("å†…å­˜åˆ†é…å¤±è´¥,ç¨‹åºç»ˆæ­¢!\n");
 
                         exit(-1);
                     }
@@ -107,10 +240,10 @@ PMNODE InputMarkInfo(PMNODE mhead){
 PMNODE MarkNodeCopy(PMNODE mhead){
     PMNODE h,a;
    if(mhead == NULL){
-       printf("¸´ÖÆµÄÁ´±íÊÇ¿ÕµÄ");
+       printf("å¤åˆ¶çš„é“¾è¡¨æ˜¯ç©ºçš„");
        return NULL;
    }else if(mhead->D==NULL){
-       printf("¸´ÖÆµÄÁ´±íÊÇ¿ÕµÄ");
+       printf("å¤åˆ¶çš„é“¾è¡¨æ˜¯ç©ºçš„");
        return NULL;
    }
    h=a=(PMNODE)malloc(sizeof(MNODE));
@@ -134,35 +267,35 @@ PMNODE MarkNodeCopy(PMNODE mhead){
 DN InputStudent(DN phead){
         SNODE stu;
         if(NULL == phead){
-            printf("ÇëÖ´ĞĞ³õÊ¼»¯ÃüÁî\n");
+            printf("è¯·æ‰§è¡Œåˆå§‹åŒ–å‘½ä»¤\n");
         } else{
-            printf("»¶Ó­½øÈëÑ§ÉúÂ¼ÈëÏµÍ³È·ÈÏ°´YÍË³ö°´N(Y?N)\n");
+            printf("æ¬¢è¿è¿›å…¥å­¦ç”Ÿå½•å…¥ç³»ç»Ÿç¡®è®¤æŒ‰Yé€€å‡ºæŒ‰N(Y?N)\n");
             char c;
             scanf("%s",&c);
             if(checkExit(c)){
                 DN ptail = phead;
                 ptail->DOWN=NULL;
                 for(int i=0;;i++){
-                    system("cls");//ÇåÆÁ
+                    system("cls");//æ¸…å±
                     stu.student.tempId=i+1;
-                    printf("ÇëÊäÈëµÚ%d¸öÑ§ÉúµÄÑ§ºÅ:\n", i+1);
+                    printf("è¯·è¾“å…¥ç¬¬%dä¸ªå­¦ç”Ÿçš„å­¦å·:\n", i+1);
                     scanf("%s", stu.student.No);
-                    printf("ÇëÊäÈëµÚ%d¸öÑ§ÉúµÄĞÕÃû:\n", i+1);
+                    printf("è¯·è¾“å…¥ç¬¬%dä¸ªå­¦ç”Ÿçš„å§“å:\n", i+1);
                     scanf("%s", stu.student.Name);
-                    printf("ÇëÊäÈëµÚ%d¸öÑ§ÉúµÄĞÔ±ğ:\n", i+1);
+                    printf("è¯·è¾“å…¥ç¬¬%dä¸ªå­¦ç”Ÿçš„æ€§åˆ«:\n", i+1);
                     scanf("%s", stu.student.Sex);
-                    printf("ÇëÊäÈëµÚ%d¸öÑ§ÉúµÄ°à¼¶:\n", i+1);
+                    printf("è¯·è¾“å…¥ç¬¬%dä¸ªå­¦ç”Ÿçš„ç­çº§:\n", i+1);
                     scanf("%s", stu.student.Class);
-                    printf("ÇëÊäÈëµÚ%d¸öÑ§ÉúµÄµç»°\n", i+1);
+                    printf("è¯·è¾“å…¥ç¬¬%dä¸ªå­¦ç”Ÿçš„ç”µè¯\n", i+1);
                     scanf("%s", stu.student.Tel);
-                    printf("¼ÌĞø°´YÍË³ö°´N(Y?N)\n");
+                    printf("ç»§ç»­æŒ‰Yé€€å‡ºæŒ‰N(Y?N)\n");
                     char s;
                     scanf("%s",&s);
                     if(checkExit(s)){
                         DN pnew=(DN)malloc(sizeof(SNODE));
                         if(NULL == pnew)
                         {
-                            printf("ÄÚ´æ·ÖÅäÊ§°Ü,³ÌĞòÖÕÖ¹!\n");
+                            printf("å†…å­˜åˆ†é…å¤±è´¥,ç¨‹åºç»ˆæ­¢!\n");
 
                             exit(-1);
                         }
@@ -176,7 +309,7 @@ DN InputStudent(DN phead){
                         DN epnew=(DN)malloc(sizeof(SNODE));
                         if(NULL == epnew)
                         {
-                            printf("ÄÚ´æ·ÖÅäÊ§°Ü,³ÌĞòÖÕÖ¹!\n");
+                            printf("å†…å­˜åˆ†é…å¤±è´¥,ç¨‹åºç»ˆæ­¢!\n");
 
                             exit(-1);
                         }
@@ -193,10 +326,10 @@ DN InputStudent(DN phead){
 }
 void OutputStudentToolOfMark(DN pHead)
 {
-    //¶¨ÒåÒ»¸öÖ¸ÕëÓÃÓÚ±éÀúÑ§ÉúĞÅÏ¢
+    //å®šä¹‰ä¸€ä¸ªæŒ‡é’ˆç”¨äºéå†å­¦ç”Ÿä¿¡æ¯
 
     int count=1;
-    printf("ID   Ñ§ºÅ  ĞÕÃû\n");
+    printf("ID   å­¦å·  å§“å\n");
 
     while(NULL != pHead)
     {
@@ -214,7 +347,7 @@ void OutputStudentToolOfMark(DN pHead)
 }
 DN InputStudentMark(DN pHead,PMNODE mHead){
     if(pHead==NULL||mHead==NULL){
-        printf("Ã»ÓĞÑ§Éú»ò¿Î³ÌÊı¾İÇëÂ¼Èë\n");
+        printf("æ²¡æœ‰å­¦ç”Ÿæˆ–è¯¾ç¨‹æ•°æ®è¯·å½•å…¥\n");
         return 0;
     }
     DN pp=pHead->DOWN;
@@ -223,7 +356,7 @@ DN InputStudentMark(DN pHead,PMNODE mHead){
        int i=0;
        DN p=pHead->DOWN;
        OutputStudentToolOfMark(p);
-       printf("ÇëÊäÈëÄãÒªÂ¼Èë³É¼¨µÄÑ§ÉúĞòºÅ:\n");
+       printf("è¯·è¾“å…¥ä½ è¦å½•å…¥æˆç»©çš„å­¦ç”Ÿåºå·:\n");
        scanf("%d",&i);
        while (p!=NULL){
            if(p->student.tempId==i){
@@ -234,7 +367,7 @@ DN InputStudentMark(DN pHead,PMNODE mHead){
                while (mp!=NULL){
                    int flag=1;
                    while(flag){
-                       printf("ÇëÊäÈë%sµÄ%s³É¼¨:\n",p->student.Name,mp->mark.ClassName);
+                       printf("è¯·è¾“å…¥%sçš„%sæˆç»©:\n",p->student.Name,mp->mark.ClassName);
                        float mark;
                        scanf("%f",&mark);
                        if(mark>=0&&mark<=100){
@@ -243,7 +376,7 @@ DN InputStudentMark(DN pHead,PMNODE mHead){
                            mcount++;
                            flag=0;
                        }else{
-                           printf("³É¼¨Ğ£ÑéÊ§°Ü£¡ÇëÖØĞÂÊäÈë£¡\n");
+                           printf("æˆç»©æ ¡éªŒå¤±è´¥ï¼è¯·é‡æ–°è¾“å…¥ï¼\n");
                        }
 
                    }
@@ -257,7 +390,7 @@ DN InputStudentMark(DN pHead,PMNODE mHead){
            }
            p=p->DOWN;
        }
-       printf("¼ÌĞøÇë°´YÍË³ö°´N(Y?N)\n");
+       printf("ç»§ç»­è¯·æŒ‰Yé€€å‡ºæŒ‰N(Y?N)\n");
        char c;
        scanf("%s",&c);
        if(checkExit(c)){
@@ -271,10 +404,10 @@ DN InputStudentMark(DN pHead,PMNODE mHead){
 }
 void OutputStudent(DN pHead)
 {
-    //¶¨ÒåÒ»¸öÖ¸ÕëÓÃÓÚ±éÀúÑ§ÉúĞÅÏ¢
+    //å®šä¹‰ä¸€ä¸ªæŒ‡é’ˆç”¨äºéå†å­¦ç”Ÿä¿¡æ¯
     DN p = pHead->DOWN;
 
-    printf("ID Ñ§ºÅ  ĞÕÃû  ĞÔ±ğ  °à¼¶  µç»°\n");
+    printf("ID å­¦å·  å§“å  æ€§åˆ«  ç­çº§  ç”µè¯\n");
 
     while(NULL != p)
     {
@@ -288,10 +421,10 @@ void OutputStudent(DN pHead)
 }
 void OutputMarkInfo(PMNODE pHead)
 {
-    //¶¨ÒåÒ»¸öÖ¸ÕëÓÃÓÚ±éÀúÑ§ÉúĞÅÏ¢
+    //å®šä¹‰ä¸€ä¸ªæŒ‡é’ˆç”¨äºéå†å­¦ç”Ÿä¿¡æ¯
     PMNODE p = pHead->D->D;
 
-    printf("¿Î³ÌÃû\n");
+    printf("è¯¾ç¨‹å\n");
 
     while(NULL != p)
     {
@@ -307,7 +440,7 @@ void OutputMark(PMNODE pHead)
 {
     PMNODE p = pHead->D;
 
-    printf("¿Î³ÌÃû\n");
+    printf("è¯¾ç¨‹å\n");
 
     while(NULL != p)
     {
@@ -322,7 +455,7 @@ void OutputMark(PMNODE pHead)
 void OutputMarkDetail(DN pHead){
     DN p=pHead;
     while (NULL !=p){
-        printf("ID         Ñ§ºÅ         ĞÕÃû         ×Ü·Ö         Æ½¾ù·Ö\n");
+        printf("ID         å­¦å·         å§“å         æ€»åˆ†         å¹³å‡åˆ†\n");
         printf("%d          %s          %s          %.1f          %.1f\n",p->student.tempId,p->student.No,p->student.Name,p->Total,p->Avg);
      PMNODE m=p->SMN;
         while(NULL !=m){
@@ -335,7 +468,7 @@ void OutputMarkDetail(DN pHead){
 void OutputOrderByMarkDetail(DN pHead){
     DN p=pHead->DOWN;
     while (NULL !=p){
-        printf("ID         Ñ§ºÅ         ĞÕÃû\n");
+        printf("ID         å­¦å·         å§“å\n");
         printf("%d          %s          %s\n",p->student.tempId,p->student.No,p->student.Name);
         p=p->DOWN;
     }
@@ -344,7 +477,7 @@ void DeleteStudent(DN pHead){
     OutputStudent(pHead);
     DN temp;
     DN d=pHead;
-    printf("ÇëÊäÈëÄãÒªÉ¾³ıµÄÑ§ÉúµÄID:\n");
+    printf("è¯·è¾“å…¥ä½ è¦åˆ é™¤çš„å­¦ç”Ÿçš„ID:\n");
     int flag=0;
     scanf("%d",&flag);
     while(NULL!=d->DOWN){
@@ -368,7 +501,7 @@ void DeleteStudent(DN pHead){
 }
 void InsertStudent(DN pHead){
     OutputStudent(pHead);
-    printf("ÇëÊäÈëÄãÒª²åÈëµÄÎ»ÖÃ£¡\n");
+    printf("è¯·è¾“å…¥ä½ è¦æ’å…¥çš„ä½ç½®ï¼\n");
     int flag=0;
     scanf("%d",&flag);
     DN pnew=(DN)malloc(sizeof(SNODE));
@@ -377,15 +510,15 @@ void InsertStudent(DN pHead){
         if(temp->student.tempId==flag){
             SNODE stu;
             stu.student.tempId=flag;
-            printf("ÇëÊäÈëµÚ%d¸öÑ§ÉúµÄÑ§ºÅ:\n", flag);
+            printf("è¯·è¾“å…¥ç¬¬%dä¸ªå­¦ç”Ÿçš„å­¦å·:\n", flag);
             scanf("%s", stu.student.No);
-            printf("ÇëÊäÈëµÚ%d¸öÑ§ÉúµÄĞÕÃû:\n", flag);
+            printf("è¯·è¾“å…¥ç¬¬%dä¸ªå­¦ç”Ÿçš„å§“å:\n", flag);
             scanf("%s", stu.student.Name);
-            printf("ÇëÊäÈëµÚ%d¸öÑ§ÉúµÄĞÔ±ğ:\n", flag);
+            printf("è¯·è¾“å…¥ç¬¬%dä¸ªå­¦ç”Ÿçš„æ€§åˆ«:\n", flag);
             scanf("%s", stu.student.Sex);
-            printf("ÇëÊäÈëµÚ%d¸öÑ§ÉúµÄ°à¼¶:\n", flag);
+            printf("è¯·è¾“å…¥ç¬¬%dä¸ªå­¦ç”Ÿçš„ç­çº§:\n", flag);
             scanf("%s", stu.student.Class);
-            printf("ÇëÊäÈëµÚ%d¸öÑ§ÉúµÄµç»°\n", flag);
+            printf("è¯·è¾“å…¥ç¬¬%dä¸ªå­¦ç”Ÿçš„ç”µè¯\n", flag);
             scanf("%s", stu.student.Tel);
             pnew->student=stu.student;
             DN d=temp->DOWN;
@@ -409,13 +542,13 @@ void InsertMark(PMNODE mhead){
         if(mhead->D==NULL){
             PMNODE pnew=(PMNODE)malloc(sizeof(MNODE));
             MNODE mnode;
-            printf("ÇëÊäÈë¿Î³ÌÃû³Æ:\n");
+            printf("è¯·è¾“å…¥è¯¾ç¨‹åç§°:\n");
             scanf("%s", mnode.mark.ClassName);
             pnew->mark=mnode.mark;
             pnew->D=NULL;
             printf("%s",mhead->mark.ClassName);
             mhead->D=pnew;
-            printf("¼ÌĞøÇë°´YÍË³ö°´N(Y?N)\n");
+            printf("ç»§ç»­è¯·æŒ‰Yé€€å‡ºæŒ‰N(Y?N)\n");
             char c;
             scanf("%s",&c);
             if(checkExit(c)){
@@ -430,22 +563,22 @@ void InsertMark(PMNODE mhead){
 }
 void ChangeStudent(DN pHead){
     OutputMarkDetail(pHead->DOWN);
-    printf("ÇëÊäÈëÒªĞŞ¸ÄµÄÑ§ÉúµÄID\n");
+    printf("è¯·è¾“å…¥è¦ä¿®æ”¹çš„å­¦ç”Ÿçš„ID\n");
     int tempId;
     scanf("%d",&tempId);
     while(pHead!=NULL){
         if(pHead->student.tempId==tempId){
-            printf("ÇëÊäÈëµÚ%d¸öÑ§ÉúµÄÑ§ºÅ:\n", pHead->student.tempId);
+            printf("è¯·è¾“å…¥ç¬¬%dä¸ªå­¦ç”Ÿçš„å­¦å·:\n", pHead->student.tempId);
             scanf("%s", pHead->student.No);
-            printf("ÇëÊäÈëµÚ%d¸öÑ§ÉúµÄĞÕÃû:\n", pHead->student.tempId);
+            printf("è¯·è¾“å…¥ç¬¬%dä¸ªå­¦ç”Ÿçš„å§“å:\n", pHead->student.tempId);
             scanf("%s", pHead->student.Name);
-            printf("ÇëÊäÈëµÚ%d¸öÑ§ÉúµÄĞÔ±ğ:\n", pHead->student.tempId);
+            printf("è¯·è¾“å…¥ç¬¬%dä¸ªå­¦ç”Ÿçš„æ€§åˆ«:\n", pHead->student.tempId);
             scanf("%s", pHead->student.Sex);
-            printf("ÇëÊäÈëµÚ%d¸öÑ§ÉúµÄ°à¼¶:\n", pHead->student.tempId);
+            printf("è¯·è¾“å…¥ç¬¬%dä¸ªå­¦ç”Ÿçš„ç­çº§:\n", pHead->student.tempId);
             scanf("%s", pHead->student.Class);
-            printf("ÇëÊäÈëµÚ%d¸öÑ§ÉúµÄµç»°\n", pHead->student.tempId);
+            printf("è¯·è¾“å…¥ç¬¬%dä¸ªå­¦ç”Ÿçš„ç”µè¯\n", pHead->student.tempId);
             scanf("%s", pHead->student.Tel);
-            printf("ÊÇ·ñÒªĞŞ¸Ä³É¼¨ĞÅÏ¢È·ÈÏ°´YÍË³ö°´N(Y?N)\n");
+            printf("æ˜¯å¦è¦ä¿®æ”¹æˆç»©ä¿¡æ¯ç¡®è®¤æŒ‰Yé€€å‡ºæŒ‰N(Y?N)\n");
             char ch;
             scanf("%s",&ch);
             if(checkExit(ch)){
@@ -453,7 +586,7 @@ void ChangeStudent(DN pHead){
                 int count=0;
                 float sum=0;
                 while (pm!=NULL){
-                    printf("ÇëÊäÈë%sµÄ%s³É¼¨\n",pHead->student.Name,pm->mark.ClassName);
+                    printf("è¯·è¾“å…¥%sçš„%sæˆç»©\n",pHead->student.Name,pm->mark.ClassName);
                     scanf("%f",&pm->mark.ClassMark);
                     count++;
                     sum=sum+pm->mark.ClassMark;
@@ -461,7 +594,7 @@ void ChangeStudent(DN pHead){
                 }
                 pHead->Total=sum;
                 pHead->Avg=sum/count;
-                printf("ĞŞ¸ÄÍê³É£¡\n");
+                printf("ä¿®æ”¹å®Œæˆï¼\n");
             }
         }
         pHead=pHead->DOWN;
@@ -469,16 +602,16 @@ void ChangeStudent(DN pHead){
 
 }
 void ScortByAVG(DN pHead) {
-    DN p, q;//¶¨ÒåÁ½¸öÖ¸Õë
+    DN p, q;//å®šä¹‰ä¸¤ä¸ªæŒ‡é’ˆ
 
     SNODE temp;
 
     for (p = pHead->DOWN; NULL != p; p = p->DOWN) {
         for (q = p->DOWN; NULL != q; q = q->DOWN) {
-            if (p->Avg < q->Avg)//µ±Ç°Ò»¸öÑ§ÉúµÄÓïÎÄ³É¼¨Ğ¡ÓÚºóÒ»¸öÑ§ÉúµÄÓïÎÄ³É¼¨Ê±
+            if (p->Avg < q->Avg)//å½“å‰ä¸€ä¸ªå­¦ç”Ÿçš„è¯­æ–‡æˆç»©å°äºåä¸€ä¸ªå­¦ç”Ÿçš„è¯­æ–‡æˆç»©æ—¶
             {
                 printf("%.1f<%.1f\n",p->Avg,q->Avg);
-                temp.student = p->student;//½»»»Ñ§ÉúµÄÎ»ÖÃ
+                temp.student = p->student;//äº¤æ¢å­¦ç”Ÿçš„ä½ç½®
                 p->student = q->student;
                 q->student = temp.student;
             }
@@ -486,16 +619,16 @@ void ScortByAVG(DN pHead) {
     }
 }
 void ScortBySUM(DN pHead) {
-    DN p, q;//¶¨ÒåÁ½¸öÖ¸Õë
+    DN p, q;//å®šä¹‰ä¸¤ä¸ªæŒ‡é’ˆ
 
     SNODE temp;
 
     for (p = pHead->DOWN; NULL != p; p = p->DOWN) {
         for (q = p->DOWN; NULL != q; q = q->DOWN) {
-            if (p->Total < q->Total)//µ±Ç°Ò»¸öÑ§ÉúµÄÓïÎÄ³É¼¨Ğ¡ÓÚºóÒ»¸öÑ§ÉúµÄÓïÎÄ³É¼¨Ê±
+            if (p->Total < q->Total)//å½“å‰ä¸€ä¸ªå­¦ç”Ÿçš„è¯­æ–‡æˆç»©å°äºåä¸€ä¸ªå­¦ç”Ÿçš„è¯­æ–‡æˆç»©æ—¶
             {
                 printf("%.1f<%.1f\n",p->Total,q->Total);
-                temp.student = p->student;//½»»»Ñ§ÉúµÄÎ»ÖÃ
+                temp.student = p->student;//äº¤æ¢å­¦ç”Ÿçš„ä½ç½®
                 p->student = q->student;
                 q->student = temp.student;
             }
@@ -503,7 +636,7 @@ void ScortBySUM(DN pHead) {
     }
 }
 void ScortByClass(DN pHead, char name[20]) {
-    DN p, q;//¶¨ÒåÁ½¸öÖ¸Õë
+    DN p, q;//å®šä¹‰ä¸¤ä¸ªæŒ‡é’ˆ
     PMNODE d,b;
     SNODE temp;
     printf("%s", name);
@@ -511,18 +644,18 @@ void ScortByClass(DN pHead, char name[20]) {
         for (q = p->DOWN; NULL != q; q = q->DOWN) {
             for(d=p->SMN;NULL!=d;d=d->D){
                 for(b=q->SMN;NULL!=b;b=b->D){
-//                    printf("´«Èë%s",name);
-//                    printf("flag£º1\n");
-//                    printf("dµÄ%s\n",d->mark.ClassName);
-//                    printf("bµÄ%s\n",b->mark.ClassName);
-//                    printf("flag£º3%d",strcmp(d->mark.ClassName,name));
-//                    printf("flag£º4%d",strcmp(b->mark.ClassName,name));
+//                    printf("ä¼ å…¥%s",name);
+//                    printf("flagï¼š1\n");
+//                    printf("dçš„%s\n",d->mark.ClassName);
+//                    printf("bçš„%s\n",b->mark.ClassName);
+//                    printf("flagï¼š3%d",strcmp(d->mark.ClassName,name));
+//                    printf("flagï¼š4%d",strcmp(b->mark.ClassName,name));
                     if(strcmp(d->mark.ClassName,name)==0&&strcmp(b->mark.ClassName,name)==0){
                        // printf("2\n");
                         if(d->mark.ClassMark < b->mark.ClassMark){
                            // printf("3\n");
                            // printf("%.1f < %.1f\n",d->mark.ClassMark,b->mark.ClassMark);
-                            temp.student = p->student;//½»»»Ñ§ÉúµÄÎ»ÖÃ
+                            temp.student = p->student;//äº¤æ¢å­¦ç”Ÿçš„ä½ç½®
                             p->student = q->student;
                             q->student = temp.student;
 
@@ -543,9 +676,9 @@ void UnityOrderBy(DN pHead){
     PMNODE pmnode=pHead->DOWN->SMN;
     int i=0;
     int k=1;
-    printf("ÕâÊÇÒ»¸öÍ¨ÓÃÅÅĞò£¬ÇëÊäÈëÒÀÕÕÊ²Ã´ÅÅĞò\n");
-    printf("---1.×ÛºÏÅÅĞò---\n");
-    printf("---2.¿ÆÄ¿ÅÅĞò---\n");
+    printf("è¿™æ˜¯ä¸€ä¸ªé€šç”¨æ’åºï¼Œè¯·è¾“å…¥ä¾ç…§ä»€ä¹ˆæ’åº\n");
+    printf("---1.ç»¼åˆæ’åº---\n");
+    printf("---2.ç§‘ç›®æ’åº---\n");
     scanf("%d",&i);
     switch(i){
         case 1:
@@ -571,7 +704,7 @@ void UnityOrderBy(DN pHead){
                 k++;
                 pmnode=pmnode->D;
             }
-            printf("ÇëÊäÈëÒªÅÅĞòµÄ¿ÎÃû\n");
+            printf("è¯·è¾“å…¥è¦æ’åºçš„è¯¾å\n");
             char mname [20] ;
             scanf("%s",mname);
             ScortByClass(pHead,mname);
@@ -607,3 +740,4 @@ void main(){
     ChangeStudent(p);
     OutputStudent(p);
 }
+```
